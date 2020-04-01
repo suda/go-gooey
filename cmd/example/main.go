@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/gotk3/gotk3/gtk"
+	. "github.com/suda/go-gooey/pkg/property"
+	. "github.com/suda/go-gooey/pkg/widgets"
 )
 
 // func RunSpec(params ...interface{}) {
@@ -19,10 +21,6 @@ func RunSpec(w Window) {
 type Size struct {
 	Width  int
 	Height int
-}
-
-type Widgetable interface {
-	Widget() (gtk.IWidget, error)
 }
 
 type Window struct {
@@ -61,82 +59,29 @@ func (w *Window) Widget() (*gtk.Window, error) {
 	return win, nil
 }
 
-type Label struct {
-	Text string
-}
-
-func (l *Label) Widget() (gtk.IWidget, error) {
-	lbl, err := gtk.LabelNew(l.Text)
-	if err != nil {
-		return nil, err
-	}
-	return lbl, nil
-}
-
-type Button struct {
-	Label   string
-	Clicked interface{}
-}
-
-func (b *Button) Widget() (gtk.IWidget, error) {
-	btn, err := gtk.ButtonNewWithLabel(b.Label)
-	if err != nil {
-		return nil, err
-	}
-
-	if b.Clicked != nil {
-		btn.Connect("clicked", b.Clicked)
-	}
-
-	return btn, nil
-}
-
-type Box struct {
-	Orientation gtk.Orientation
-	Spacing     int
-	Children    []Widgetable
-}
-
-func (b *Box) Widget() (gtk.IWidget, error) {
-	box, err := gtk.BoxNew(b.Orientation, b.Spacing)
-	if err != nil {
-		return nil, err
-	}
-
-	if b.Children != nil {
-		for _, child := range b.Children {
-			widget, err := child.Widget()
-			if err != nil {
-				return nil, err
-			}
-			box.Add(widget)
-		}
-	}
-
-	return box, nil
-}
-
 func main() {
 	gtk.Init(nil)
 
+	counter := NewStringProperty()
+
 	RunSpec(Window{
-		Title: "Simple Example",
+		Title: "Hello bindings!",
 		Destroy: func() {
 			gtk.MainQuit()
 		},
-		DefaultSize: Size{800, 600},
+		DefaultSize: Size{400, 200},
 		Children: []Widgetable{
 			&Box{
 				Orientation: gtk.ORIENTATION_VERTICAL,
 				Spacing:     20,
 				Children: []Widgetable{
 					&Label{
-						Text: "Hello, gotk3ui!",
+						Text: counter,
 					},
 					&Button{
-						Label: "Click me!",
+						Label: "Hello!",
 						Clicked: func() {
-							log.Println("Hi!")
+							counter.Set(counter.Value + " 👋")
 						},
 					},
 				},
