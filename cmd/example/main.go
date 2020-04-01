@@ -31,7 +31,7 @@ func main() {
 		},
 		DefaultSize: Size{400, 200},
 		CSS: &Css{
-			Path: "assets/style.css",
+			Path: "assets/images/style.css",
 		},
 		Children: []Widgetable{
 			&Box{
