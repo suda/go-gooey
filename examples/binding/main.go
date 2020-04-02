@@ -12,6 +12,7 @@ import (
 func main() {
 	gtk.Init(nil)
 
+	// Define a StringProperty
 	counter := NewStringProperty()
 
 	window := Window{
@@ -28,11 +29,13 @@ func main() {
 				Orientation: gtk.ORIENTATION_VERTICAL,
 				Children: []Widgetable{
 					&Label{
+						// Assign the property to Text
 						Text: *counter,
 					},
 					&Button{
 						Label: "Hello!",
 						Clicked: func() {
+							// Modify the property value
 							counter.Set(counter.Value + " 👋")
 						},
 					},

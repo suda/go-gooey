@@ -20,6 +20,12 @@
 
 ## 📙 Usage
 
+The best way is to look at the [examples](examples). Use `go run` to start them, i.e.:
+
+```
+$ go run ./examples/simple
+```
+
 ### Basic example
 
 ```go
@@ -57,6 +63,40 @@ gtk.Main()
 It should look like this:
 
 ![](assets/images/example-simple.png)
+
+### Properties
+
+If you wish to bind a component attribute to a variable, you need to use a `Property` type. It's practically a wrapper around [`RxGo`](https://github.com/ReactiveX/RxGo) observable that allows to subscribe to changes:
+
+```go
+// Define a StringProperty
+counter := NewStringProperty()
+
+window := Window{
+	// ...
+	Children: []Widgetable{
+		&Box{
+			Children: []Widgetable{
+				&Label{
+					// Assign the property to Text
+					Text: *counter,
+				},
+				&Button{
+					Label: "Hello!",
+					Clicked: func() {
+						// Modify the property value
+						counter.Set(counter.Value + " 👋")
+					},
+				},
+			},
+		},
+	},
+}
+```
+
+The value changes, immediatelly triger an update on the component:
+
+![](assets/images/example-binding.gif)
 
 ## 🔍 GTK Inspector
 
