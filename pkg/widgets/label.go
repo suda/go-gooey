@@ -5,7 +5,7 @@ import (
 
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/reactivex/rxgo/v2"
-	"github.com/suda/go-gooey/pkg/property"
+	"github.com/suda/go-gooey/pkg/properties"
 )
 
 // Label is a representation of GTK's GtkLabel
@@ -21,7 +21,7 @@ func (l *Label) Widget() (gtk.IWidget, error) {
 	}
 
 	if l.Text != nil {
-		if val, ok := l.Text.(property.StringProperty); ok {
+		if val, ok := l.Text.(properties.StringProperty); ok {
 			observable := rxgo.FromChannel(val.Channel)
 			observable.ForEach(func(v interface{}) {
 				lbl.SetText(v.(string))

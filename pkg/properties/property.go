@@ -1,4 +1,4 @@
-package property
+package properties
 
 import (
 	"github.com/reactivex/rxgo/v2"

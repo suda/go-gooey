@@ -5,7 +5,7 @@ import (
 
 	"github.com/gotk3/gotk3/gtk"
 	. "github.com/suda/go-gooey/pkg/objects"
-	. "github.com/suda/go-gooey/pkg/property"
+	. "github.com/suda/go-gooey/pkg/properties"
 	. "github.com/suda/go-gooey/pkg/widgets"
 )
 
