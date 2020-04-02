@@ -6,6 +6,9 @@
 	</p>
 	<br>
 	<a href="https://cloud.drone.io/suda/go-gooey"><img src="https://cloud.drone.io/api/badges/suda/go-gooey/status.svg" /></a>
+	<a href="https://goreportcard.com/report/github.com/suda/go-gooey"><img src="https://goreportcard.com/badge/github.com/suda/go-gooey" /></a>
+	<a href="https://contributionswelcome.org/"><img src="https://img.shields.io/badge/contributions-welcome-7dcfef" /></a>
+	<a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/suda/go-gooey" /></a>
 	<br>
 	<br>
 </div>
