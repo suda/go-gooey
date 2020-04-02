@@ -10,6 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}",
+            "cwd": "${workspaceRoot}",
             "env": {},
             "args": []
         }

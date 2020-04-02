@@ -6,24 +6,30 @@ import (
 	. "github.com/suda/go-gooey/pkg/widgets"
 )
 
+// Size holds Width and Height
 type Size struct {
 	Width  int
 	Height int
 }
 
+// Window holds a visible window
 type Window struct {
 	Title       string
 	Destroy     interface{}
-	DefaultSize Size
-	Children    []Widgetable
+	DefaultSize *Size
 	CSS         *Css
+	window      *gtk.Window
+	Children    []Widgetable
+	Childful
 }
 
-func (w *Window) Widget() (*gtk.Window, error) {
+// Create instantiates  GTK Window
+func (w *Window) Create() error {
 	win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
 	if err != nil {
-		return nil, err
+		return err
 	}
+	w.window = win
 
 	if w.Title != "" {
 		win.SetTitle(w.Title)
@@ -35,23 +41,32 @@ func (w *Window) Widget() (*gtk.Window, error) {
 
 	if w.CSS != nil {
 		provider, err := w.CSS.Provider()
-		if err == nil {
-			screen, _ := gdk.ScreenGetDefault()
-			gtk.AddProviderForScreen(screen, provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+		if err != nil {
+			return err
 		}
+
+		screen, _ := gdk.ScreenGetDefault()
+		gtk.AddProviderForScreen(screen, provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 	}
 
-	win.SetDefaultSize(w.DefaultSize.Width, w.DefaultSize.Height)
-
-	if w.Children != nil {
-		for _, child := range w.Children {
-			widget, err := child.Widget()
-			if err != nil {
-				return nil, err
-			}
-			win.Add(widget)
-		}
+	if w.DefaultSize != nil {
+		win.SetDefaultSize(w.DefaultSize.Width, w.DefaultSize.Height)
 	}
 
-	return win, nil
+	w.AddChildrenToParent(&win.Container, &w.Children)
+
+	return nil
+}
+
+// Open creates the window if needed and shows it contents
+func (w *Window) Open() error {
+	if w.window == nil {
+		err := w.Create()
+
+		if err != nil {
+			return err
+		}
+	}
+	w.window.ShowAll()
+	return nil
 }

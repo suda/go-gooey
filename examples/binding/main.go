@@ -9,36 +9,26 @@ import (
 	. "github.com/suda/go-gooey/pkg/widgets"
 )
 
-// func RunSpec(params ...interface{}) {
-func RunSpec(w Window) {
-	win, err := w.Widget()
-	if err != nil {
-		log.Fatal("Unable to create window:", err)
-	}
-
-	win.ShowAll()
-}
-
 func main() {
 	gtk.Init(nil)
 
 	counter := NewStringProperty()
 
-	RunSpec(Window{
+	window := Window{
 		Title: "Hello bindings!",
 		Destroy: func() {
 			gtk.MainQuit()
 		},
-		DefaultSize: Size{400, 200},
+		DefaultSize: &Size{Width: 400, Height: 200},
 		CSS: &Css{
-			Path: "assets/images/style.css",
+			Path: "assets/css/style.css",
 		},
 		Children: []Widgetable{
 			&Box{
 				Orientation: gtk.ORIENTATION_VERTICAL,
 				Children: []Widgetable{
 					&Label{
-						Text: counter,
+						Text: *counter,
 					},
 					&Button{
 						Label: "Hello!",
@@ -49,7 +39,12 @@ func main() {
 				},
 			},
 		},
-	})
+	}
+
+	err := window.Open()
+	if err != nil {
+		log.Fatal("Unable to open window:", err)
+	}
 
 	gtk.Main()
 }
