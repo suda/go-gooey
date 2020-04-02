@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/gotk3/gotk3/gtk"
-	. "github.com/suda/go-gooey/pkg/objects"
-	. "github.com/suda/go-gooey/pkg/widgets"
+	o "github.com/suda/go-gooey/pkg/objects"
+	w "github.com/suda/go-gooey/pkg/widgets"
 )
 
 func main() {
@@ -13,17 +13,17 @@ func main() {
 	gtk.Init(nil)
 
 	// Declare the window
-	window := Window{
+	window := o.Window{
 		Title: "Hello go-gooey!",
 		// Hook the destroy signal to a callback
 		Destroy: func() {
 			gtk.MainQuit()
 		},
 		// Set the default size, otherwise the window will be as big as the initial contents
-		DefaultSize: &Size{Width: 400, Height: 200},
+		DefaultSize: &o.Size{Width: 400, Height: 200},
 		// Describe the window children components
-		Children: []Widgetable{
-			&Label{
+		Children: []w.Widgetable{
+			&w.Label{
 				Text: "👋",
 			},
 		},

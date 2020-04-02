@@ -3,7 +3,7 @@ package objects
 import (
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
-	. "github.com/suda/go-gooey/pkg/widgets"
+	w "github.com/suda/go-gooey/pkg/widgets"
 )
 
 // Size holds Width and Height
@@ -19,8 +19,8 @@ type Window struct {
 	DefaultSize *Size
 	CSS         *Css
 	window      *gtk.Window
-	Children    []Widgetable
-	Childful
+	Children    []w.Widgetable
+	w.Childful
 }
 
 // Create instantiates  GTK Window

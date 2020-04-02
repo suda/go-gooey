@@ -4,35 +4,35 @@ import (
 	"log"
 
 	"github.com/gotk3/gotk3/gtk"
-	. "github.com/suda/go-gooey/pkg/objects"
-	. "github.com/suda/go-gooey/pkg/properties"
-	. "github.com/suda/go-gooey/pkg/widgets"
+	o "github.com/suda/go-gooey/pkg/objects"
+	p "github.com/suda/go-gooey/pkg/properties"
+	w "github.com/suda/go-gooey/pkg/widgets"
 )
 
 func main() {
 	gtk.Init(nil)
 
 	// Define a StringProperty
-	counter := NewStringProperty()
+	counter := p.NewStringProperty()
 
-	window := Window{
+	window := o.Window{
 		Title: "Hello bindings!",
 		Destroy: func() {
 			gtk.MainQuit()
 		},
-		DefaultSize: &Size{Width: 400, Height: 200},
-		CSS: &Css{
+		DefaultSize: &o.Size{Width: 400, Height: 200},
+		CSS: &o.Css{
 			Path: "assets/css/style.css",
 		},
-		Children: []Widgetable{
-			&Box{
+		Children: []w.Widgetable{
+			&w.Box{
 				Orientation: gtk.ORIENTATION_VERTICAL,
-				Children: []Widgetable{
-					&Label{
+				Children: []w.Widgetable{
+					&w.Label{
 						// Assign the property to Text
 						Text: *counter,
 					},
-					&Button{
+					&w.Button{
 						Label: "Hello!",
 						Clicked: func() {
 							// Modify the property value
