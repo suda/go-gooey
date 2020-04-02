@@ -5,6 +5,7 @@
 		<b>Declarative UI framework for Go</b>
 	</p>
 	<br>
+	<a href="https://cloud.drone.io/suda/go-gooey"><img src="https://cloud.drone.io/api/badges/suda/go-gooey/status.svg" /></a>
 	<br>
 	<br>
 </div>
